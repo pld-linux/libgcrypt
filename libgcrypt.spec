@@ -2,7 +2,7 @@ Summary:	Cryptographic library based on the code from GnuPG
 Summary(pl):	Biblioteka kryptograficzna oparta na kodzie GnuPG
 Name:		libgcrypt
 Version:	1.1.6
-Release:	3
+Release:	4
 License:	GPL
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/libgcrypt/%{name}-%{version}.tar.gz
