@@ -8,6 +8,9 @@ Group(de):	Libraries
 Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
+Group(pt_BR):	Bibliotecas
+Group(ru):	Библиотеки
+Group(uk):	Б╕бл╕отеки
 Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/libgcrypt/%{name}-%{version}.tar.gz
 URL:		http://www.gnu.org/gnulist/production/libgcrypt.html
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
