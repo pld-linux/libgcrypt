@@ -1,0 +1,9 @@
+--- libgcrypt-1.1.10/mpi/Makefile.am.wiget	Wed Oct  9 13:30:58 2002
++++ libgcrypt-1.1.10/mpi/Makefile.am	Wed Oct  9 13:31:42 2002
+@@ -184,5 +184,4 @@
+ 
+ .S.lo:
+ 	 $(CPP) $(INCLUDES) $(DEFS) -DPIC `test -f '$<' || echo '$(srcdir)/'`$< | grep -v '^#' > __$*.s
+-	 $(CCASCOMPILE) -c __$*.s
+-	 mv -f __$*.o $@
++	 $(LTCCASCOMPILE) -o $@ -c __$*.s
