@@ -6,6 +6,7 @@ Release:	4
 License:	GPL
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/libgcrypt/%{name}-%{version}.tar.gz
+Patch0:		%{name}-initializer_fix.patch
 URL:		http://www.gnu.org/gnulist/production/libgcrypt.html
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -53,6 +54,7 @@ Biblioteka statyczna libgcrypt.
 
 %prep
 %setup -q
+%patch0
 
 %build
 %configure \
