@@ -1,7 +1,8 @@
 Summary:	Cryptographic library based on the code from GnuPG
+Summary(pl):	Biblioteka kryptograficzna oparta na kodzie GnuPG
 Name:		libgcrypt
 Version:	1.1.6
-Release:	2
+Release:	3
 License:	GPL
 Group:		Libraries
 Group(cs):	Knihovny
@@ -27,14 +28,24 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 This is a general purpose cryptographic library based on the code from
 GnuPG. It provides functions for all cryptograhic building blocks:
-symmetric ciphers (AES,DES,Blowfish,CAST5,Twofish,Arcfour), hash
+symmetric ciphers (AES, DES, Blowfish, CAST5, Twofish, Arcfour), hash
 algorithms (MD5, RIPE-MD160, SHA-1, TIGER-192), MACs (HMAC for all
 hash algorithms), public key algorithms (RSA, ElGamal, DSA), large
 integer functions, random numbers and a lot of supporting functions.
 
+%description -l pl
+Ten pakiet zawiera bibliotekê kryptograficzn± ogólnego przeznaczenia,
+opart± na kodzie GnuPG. Biblioteka ta dostarcza funkcje do wszystkich
+podstawowych bloków kryptografii: szyfrów symetrycznych (AES, DES,
+Blowfish, CAST5, Twofish, Acrfour), algorytmów mieszaj±cych (MD5,
+RIPE-MD160, SHA-1, RIGER-192), MAC-ów (HMAC dla wszystkich algorytmów
+mieszaj±cych), algorytmów klucza publicznego (RSA, ElGamal, DSA),
+funkcji du¿ych liczb ca³kowitych, liczb losowych i wiele funkcji
+pomocniczych.
+
 %package devel
 Summary:	Header files etc to develop libgcrypt applications
-Summary(pl):	Pliki naglowkowe i inne do libgcrypt
+Summary(pl):	Pliki nag³ówkowe i inne do libgcrypt
 Group:		Development/Libraries
 Group(cs):	Vývojové prostøedky/Knihovny
 Group(da):	Udvikling/Biblioteker
@@ -58,7 +69,7 @@ Requires:	%{name} = %{version}
 Header files etc to develop libgcrypt applications.
 
 %description devel -l pl
-Pliki naglowkowe i inne do libgcrypt.
+Pliki nag³ówkowe i inne do libgcrypt.
 
 %package static
 Summary:	Static libgcrypt library
@@ -103,11 +114,11 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	m4datadir=%{_aclocaldir}
 
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
-
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post   -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
