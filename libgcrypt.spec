@@ -4,7 +4,7 @@ Summary(pl):	Biblioteka kryptograficzna oparta na kodzie GnuPG
 Summary(pt_BR):	libgcrypt é uma biblioteca de criptografia de uso geral baseada no GnuPG
 Name:		libgcrypt
 Version:	1.2.0
-Release:	4
+Release:	6
 License:	LGPL
 Group:		Libraries
 # devel versions:
@@ -23,9 +23,6 @@ BuildRequires:	libgpg-error-devel >= 0.5
 BuildRequires:	libtool >= 1:1.4.3
 BuildRequires:	texinfo
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		_bindir		/bin
-%define		_libdir		/%{_lib}
 
 %description
 This is a general purpose cryptographic library based on the code from
@@ -107,6 +104,11 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	m4datadir=%{_aclocaldir}
 
+install -d $RPM_BUILD_ROOT/%{_lib}
+mv -f $RPM_BUILD_ROOT%{_libdir}/libgcrypt.so.*.*.* $RPM_BUILD_ROOT/%{_lib}
+ln -sf /%{_lib}/$(cd $RPM_BUILD_ROOT/%{_lib}; echo libgcrypt.so.*.*.*) \
+	$RPM_BUILD_ROOT%{_libdir}/libgcrypt.so
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -122,17 +124,17 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS THANKS NEWS README ChangeLog
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
+%attr(755,root,root) /%{_lib}/libgcrypt.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/libgcrypt-config
-%attr(755,root,root) %{_libdir}/lib*.so
-%{_libdir}/lib*.la
-%{_infodir}/*info*
+%attr(755,root,root) %{_libdir}/libgcrypt.so
+%{_libdir}/libgcrypt.la
+%{_infodir}/*.info*
 %{_includedir}/*.h
-%{_aclocaldir}/*
+%{_aclocaldir}/*.m4
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
+%{_libdir}/libgcrypt.a
