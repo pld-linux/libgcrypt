@@ -12,7 +12,7 @@ Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/libgcrypt/%{name}-%{version}.tar.gz
 Patch0:		%{name}-no_libnsl.patch
 Patch1:		%{name}-info.patch
 Patch2:		%{name}-libtool.patch
-URL:		http://www.gnu.org/gnulist/production/libgcrypt.html
+URL:		http://www.gnu.org/directory/security/libgcrypt.html
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	binutils >= 2.12
