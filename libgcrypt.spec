@@ -1,13 +1,20 @@
 Summary:	Cryptographic library based on the code from GnuPG
+Summary(es):	Libgcrypt es una biblioteca general de desarrole embasada em GnuPG
 Summary(pl):	Biblioteka kryptograficzna oparta na kodzie GnuPG
+Summary(pt_BR):	libgcrypt é uma biblioteca de criptografia de uso geral baseada no GnuPG
 Name:		libgcrypt
-Version:	1.1.6
-Release:	5
-License:	GPL
+Version:	1.1.8
+Release:	1
+License:	LGPL
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/libgcrypt/%{name}-%{version}.tar.gz
-Patch0:		%{name}-initializer_fix.patch
+Patch0:		%{name}-no_libnsl.patch
+Patch1:		%{name}-info.patch
 URL:		http://www.gnu.org/gnulist/production/libgcrypt.html
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool
+BuildRequires:	texinfo
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -28,9 +35,15 @@ mieszaj±cych), algorytmów klucza publicznego (RSA, ElGamal, DSA),
 funkcji du¿ych liczb ca³kowitych, liczb losowych i wiele funkcji
 pomocniczych.
 
+%description -l pt_BR
+Libgcrypt é uma biblioteca de criptografia de uso geral baseada no
+GnuPG.
+
 %package devel
 Summary:	Header files etc to develop libgcrypt applications
+Summary(es):	Archivos de desarrollo de libgcrypt
 Summary(pl):	Pliki nag³ówkowe i inne do libgcrypt
+Summary(pt_BR):	Arquivos de desenvolvimento da libgcrypt
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
 
@@ -40,9 +53,14 @@ Header files etc to develop libgcrypt applications.
 %description devel -l pl
 Pliki nag³ówkowe i inne do libgcrypt.
 
+%description devel -l pt_BR
+Bibliotecas de desenvolvimento para libgcrypt.
+
 %package static
 Summary:	Static libgcrypt library
+Summary(es):	Archivos de desarrollo de libgcrypt - estatico
 Summary(pl):	Biblioteka statyczna libgcrypt
+Summary(pt_BR):	Arquivos de desenvolvimento da libgcrypt - biblioteca estática
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}
 
@@ -52,11 +70,20 @@ Static libgcrypt library.
 %description static -l pl
 Biblioteka statyczna libgcrypt.
 
+%description static -l pt_BR
+Bibliotecas de desenvolvimento para libgcrypt - estático.
+
 %prep
 %setup -q
-%patch0
+%patch0 -p1
+%patch1 -p1
 
 %build
+rm -f misssing
+%{__libtoolize}
+aclocal
+%{__autoconf}
+%{__automake}
 %configure \
 	--enable-static
 %{__make}
@@ -74,17 +101,22 @@ rm -rf $RPM_BUILD_ROOT
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
+%post devel
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+
+%postun devel
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
-%dir %{_libdir}/libgcrypt
-%attr(755,root,root) %{_libdir}/libgcrypt/*
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/libgcrypt-config
 %attr(755,root,root) %{_libdir}/lib*.so
 %attr(755,root,root) %{_libdir}/lib*.la
+%{_infodir}/*info*
 %{_includedir}/*.h
 %{_aclocaldir}/*
 
