@@ -1,0 +1,14 @@
+--- libgcrypt-1.1.8/doc/gcrypt.texi~	Wed Jul 10 00:21:16 2002
++++ libgcrypt-1.1.8/doc/gcrypt.texi	Wed Jul 10 00:21:16 2002
+@@ -13,9 +13,9 @@
+ @setfilename gcrypt.info
+ @settitle The `Libgcrypt' Reference Manual
+ 
+-@dircategory GNU Libraries
++@dircategory Libraries:
+ @direntry
+-* libgcrypt: (gcrypt) Cryptographic function library.
++* libgcrypt: (gcrypt).			Cryptographic function library
+ @end direntry
+ 
+ @include version.texi
