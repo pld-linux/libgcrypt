@@ -16,7 +16,7 @@ Patch1:		%{name}-info.patch
 Patch2:		%{name}-am18.patch
 URL:		http://www.gnu.org/directory/security/libgcrypt.html
 BuildRequires:	autoconf >= 2.57
-BuildRequires:	automake >= 1.8.1
+BuildRequires:	automake >= 1:1.8.1
 BuildRequires:	binutils >= 2:2.12
 BuildRequires:	gcc >= 3.2
 BuildRequires:	libgpg-error-devel >= 0.5
