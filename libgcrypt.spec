@@ -83,7 +83,7 @@ Bibliotecas de desenvolvimento para libgcrypt - estático.
 %build
 rm -f misssing
 %{__libtoolize}
-aclocal
+%{__aclocal}
 %{__autoconf}
 %{__automake}
 %configure \
