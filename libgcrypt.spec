@@ -8,7 +8,7 @@ Group(de):	Libraries
 Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
-Source0:	%{name}-%{version}.tar.gz
+Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/libgcrypt/%{name}-%{version}.tar.gz
 URL:		http://www.gnu.org/gnulist/production/libgcrypt.html
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -35,16 +35,35 @@ Header files etc to develop libgcrypt applications.
 %description -l pl devel
 Pliki naglowkowe i inne do libgcrypt.
 
+%package static
+Summary:	Static libgcrypt library
+Summary(pl):	Biblioteka statyczna libgcrypt
+Group:		Development/Libraries
+Group(de):	Entwicklung/Libraries
+Group(fr):	Development/Librairies
+Group(pl):	Programowanie/Biblioteki
+Requires:	%{name}-devel = %{version}
+
+%description static
+Static libgcrypt library.
+
+%description -l pl static
+Biblioteka statyczna libgcrypt.
+
 %prep
 %setup -q
 
 %build
-%configure
+%configure \
+	--enable-static
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} DESTDIR=$RPM_BUILD_ROOT install
+
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT \
+	m4datadir=%{_aclocaldir}
 
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
@@ -54,13 +73,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
-%attr(755,root,root) %{_libdir}/libgcrypt/*
 %attr(755,root,root) %{_bindir}/libgcrypt-config
+%attr(755,root,root) %{_libdir}/lib*.so.*.*
+%dir %{_libdir}/libgcrypt
+%attr(755,root,root) %{_libdir}/libgcrypt/*
 
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/lib*.so
 %attr(755,root,root) %{_libdir}/lib*.la
 %{_includedir}/*.h
-%{_datadir}/libgcrypt/*
 %{_aclocaldir}/*
+
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/lib*.a
