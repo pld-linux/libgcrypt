@@ -1,19 +1,14 @@
-#
-# Conditional build:
-%bcond_without	pth	# without pth-based version of library
-#
-# TODO: separate pth version? disable by default (if !needed at all)?
 Summary:	Cryptographic library based on the code from GnuPG
 Summary(es):	Libgcrypt es una biblioteca general de desarrole embasada em GnuPG
 Summary(pl):	Biblioteka kryptograficzna oparta na kodzie GnuPG
 Summary(pt_BR):	libgcrypt é uma biblioteca de criptografia de uso geral baseada no GnuPG
 Name:		libgcrypt
-Version:	1.1.93
+Version:	1.1.94
 Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/libgcrypt/%{name}-%{version}.tar.gz
-# Source0-md5:	42fb554052d6b0e7b3a21f9e8a43da0b
+# Source0-md5:	43f0a91bb063bfb23dd60e62f14372da
 Patch0:		%{name}-no_libnsl.patch
 Patch1:		%{name}-info.patch
 Patch2:		%{name}-am18.patch
@@ -24,7 +19,6 @@ BuildRequires:	binutils >= 2.12
 BuildRequires:	gcc >= 3.2
 BuildRequires:	libgpg-error-devel >= 0.5
 BuildRequires:	libtool >= 1:1.4.3
-%{?with_pth:BuildRequires:	pth-devel >= 1.2.0}
 BuildRequires:	texinfo
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -97,8 +91,7 @@ Bibliotecas de desenvolvimento para libgcrypt - estático.
 %{__autoconf}
 %{__automake}
 %configure \
-	--enable-static \
-	%{!?with_pth:--without-pth}
+	--enable-static
 
 %{__make}
 
