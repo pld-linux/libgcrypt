@@ -13,6 +13,7 @@ Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
 # Source0-md5:	b6d3217c9333c520fe54d2e8dc5e60ec
 Patch0:		%{name}-no_libnsl.patch
 Patch1:		%{name}-info.patch
+Patch2:         %{name}-sparc64.patch
 URL:		http://www.gnu.org/directory/security/libgcrypt.html
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.9.3
@@ -84,6 +85,7 @@ Bibliotecas de desenvolvimento para libgcrypt - estático.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
