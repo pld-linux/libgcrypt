@@ -1,9 +1,9 @@
---- libgcrypt-1.1.8/configure.ac~	Wed Jul 10 00:09:12 2002
-+++ libgcrypt-1.1.8/configure.ac	Wed Jul 10 00:09:12 2002
-@@ -320,19 +320,8 @@
+--- libgcrypt-1.1.42/configure.ac~	Wed Jul 10 00:09:12 2002
++++ libgcrypt-1.1.42/configure.ac	Wed Jul 10 00:09:12 2002
+@@ -320,18 +320,8 @@
  
- dnl Solaris needs -lsocket and -lnsl. Unisys system includes
- dnl gethostbyname in libsocket but needs libnsl for socket.
+ # Solaris needs -lsocket and -lnsl. Unisys system includes
+ # gethostbyname in libsocket but needs libnsl for socket.
 -AC_CHECK_LIB(nsl, gethostbyname)
 -AC_CHECK_LIB(socket, socket, ac_need_libsocket=1, ac_try_nsl=1)
 -if test x$ac_need_libsocket = x1; then
@@ -16,9 +16,8 @@
 -        LIBS="$LIBS -lnsl"
 -    fi
 -fi
--
 +AC_CHECK_FUNC(socket, [], AC_CHECK_LIB(socket, socket))
 +AC_CHECK_FUNC(gethostbyname, [], AC_CHECK_LIB(nsl, gethostbyname))
  
- dnl Checks for header files.
- AC_HEADER_STDC
+ ##################################
+ #### Checks for header files. ####
