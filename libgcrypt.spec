@@ -1,29 +1,26 @@
-#
-# Conditional build:
-%bcond_without	pth	# without pth-based version of library
-#
-# TODO: separate pth version? disable by default (if !needed at all)?
 Summary:	Cryptographic library based on the code from GnuPG
 Summary(es):	Libgcrypt es una biblioteca general de desarrole embasada em GnuPG
 Summary(pl):	Biblioteka kryptograficzna oparta na kodzie GnuPG
 Summary(pt_BR):	libgcrypt é uma biblioteca de criptografia de uso geral baseada no GnuPG
 Name:		libgcrypt
-Version:	1.1.90
-Release:	1
+Version:	1.2.0
+Release:	5
 License:	LGPL
 Group:		Libraries
-Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/libgcrypt/%{name}-%{version}.tar.gz
-# Source0-md5:	c4407f320729a972626fbe6a7ccf2211
+# devel versions:
+#Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/libgcrypt/%{name}-%{version}.tar.gz
+Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.gz
+# Source0-md5:	5c508072d8387ce17d1ab05075c2be40
 Patch0:		%{name}-no_libnsl.patch
 Patch1:		%{name}-info.patch
+Patch2:		%{name}-am18.patch
 URL:		http://www.gnu.org/directory/security/libgcrypt.html
-BuildRequires:	autoconf >= 2.52
-BuildRequires:	automake
-BuildRequires:	binutils >= 2.12
+BuildRequires:	autoconf >= 2.57
+BuildRequires:	automake >= 1.8.1
+BuildRequires:	binutils >= 2:2.12
 BuildRequires:	gcc >= 3.2
 BuildRequires:	libgpg-error-devel >= 0.5
 BuildRequires:	libtool >= 1:1.4.3
-%{?with_pth:BuildRequires:	pth-devel >= 1.2.0}
 BuildRequires:	texinfo
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -55,8 +52,8 @@ Summary(es):	Archivos de desarrollo de libgcrypt
 Summary(pl):	Pliki nag³ówkowe i inne do libgcrypt
 Summary(pt_BR):	Arquivos de desenvolvimento da libgcrypt
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
-Requires:	libgpg-error-devel >= 0.1
+Requires:	%{name} = %{version}-%{release}
+Requires:	libgpg-error-devel >= 0.5
 
 %description devel
 Header files etc to develop libgcrypt applications.
@@ -73,7 +70,7 @@ Summary(es):	Archivos de desarrollo de libgcrypt - estatico
 Summary(pl):	Biblioteka statyczna libgcrypt
 Summary(pt_BR):	Arquivos de desenvolvimento da libgcrypt - biblioteca estática
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static libgcrypt library.
@@ -88,6 +85,7 @@ Bibliotecas de desenvolvimento para libgcrypt - estático.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
@@ -95,8 +93,7 @@ Bibliotecas de desenvolvimento para libgcrypt - estático.
 %{__autoconf}
 %{__automake}
 %configure \
-	--enable-static \
-	%{!?with_pth:--without-pth}
+	--enable-static
 
 %{__make}
 
@@ -114,10 +111,10 @@ rm -rf $RPM_BUILD_ROOT
 %postun -p /sbin/ldconfig
 
 %post devel
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
 
 %postun devel
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
 
 %files
 %defattr(644,root,root,755)
