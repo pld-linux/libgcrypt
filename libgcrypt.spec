@@ -25,7 +25,7 @@ BuildRequires:	texinfo
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_bindir		/bin
-%define		_libdir		/lib
+%define		_libdir		/%{_lib}
 
 %description
 This is a general purpose cryptographic library based on the code from
