@@ -14,7 +14,9 @@ Patch2:		%{name}-libtool.patch
 URL:		http://www.gnu.org/gnulist/production/libgcrypt.html
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	libtool
+BuildRequires:	binutils >= 2.12
+BuildRequires:	gcc >= 3.2
+BuildRequires:	libtool >= 1:1.4.3
 BuildRequires:	texinfo
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
