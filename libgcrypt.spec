@@ -1,3 +1,8 @@
+#
+# Conditional build:
+%bcond_without	pth	# without pth-based version of library
+#
+# TODO: separate pth version? disable by default (if !needed at all)?
 Summary:	Cryptographic library based on the code from GnuPG
 Summary(es):	Libgcrypt es una biblioteca general de desarrole embasada em GnuPG
 Summary(pl):	Biblioteka kryptograficzna oparta na kodzie GnuPG
@@ -18,6 +23,7 @@ BuildRequires:	binutils >= 2.12
 BuildRequires:	gcc >= 3.2
 BuildRequires:	libgpg-error-devel >= 0.5
 BuildRequires:	libtool >= 1:1.4.3
+%{?with_pth:BuildRequires:	pth-devel >= 1.2.0}
 BuildRequires:	texinfo
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -89,7 +95,9 @@ Bibliotecas de desenvolvimento para libgcrypt - estático.
 %{__autoconf}
 %{__automake}
 %configure \
-	--enable-static
+	--enable-static \
+	%{!?with_pth:--without-pth}
+
 %{__make}
 
 %install
