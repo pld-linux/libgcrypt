@@ -8,12 +8,12 @@ Summary(es):	Libgcrypt es una biblioteca general de desarrole embasada em GnuPG
 Summary(pl):	Biblioteka kryptograficzna oparta na kodzie GnuPG
 Summary(pt_BR):	libgcrypt é uma biblioteca de criptografia de uso geral baseada no GnuPG
 Name:		libgcrypt
-Version:	1.1.91
-Release:	2
+Version:	1.1.92
+Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/libgcrypt/%{name}-%{version}.tar.gz
-# Source0-md5:	8f3581d2d2a66c8f42b16f6ce13dedc3
+# Source0-md5:	d0b5a99cde147d2a7e8302c9f8f64ffc
 Patch0:		%{name}-no_libnsl.patch
 Patch1:		%{name}-info.patch
 Patch2:		%{name}-am18.patch
@@ -116,10 +116,10 @@ rm -rf $RPM_BUILD_ROOT
 %postun -p /sbin/ldconfig
 
 %post devel
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
 
 %postun devel
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
 
 %files
 %defattr(644,root,root,755)
