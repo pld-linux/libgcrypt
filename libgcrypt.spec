@@ -1,13 +1,16 @@
 Summary:	Cryptographic library based on the code from GnuPG
 Name:		libgcrypt
-Version:	1.1.5
+Version:	1.1.6
 Release:	1
 License:	GPL
 Group:		Libraries
-Group(de):	Libraries
+Group(cs):	Knihovny
+Group(de):	Bibliotheken
 Group(es):	Bibliotecas
 Group(fr):	Librairies
+Group(ja):	╔И╔╓╔ж╔И╔Й
 Group(pl):	Biblioteki
+Group(pt):	Bibliotecas
 Group(pt_BR):	Bibliotecas
 Group(ru):	Библиотеки
 Group(uk):	Б╕бл╕отеки
@@ -27,11 +30,14 @@ integer functions, random numbers and a lot of supporting functions.
 Summary:	Header files etc to develop libgcrypt applications
 Summary(pl):	Pliki naglowkowe i inne do libgcrypt
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
+Group(cs):	VЩvojovИ prostЬedky/Knihovny
+Group(de):	Entwicklung/Bibliotheken
 Group(es):	Desarrollo/Bibliotecas
 Group(fr):	Development/Librairies
+Group(ja):	Ё╚х╞/╔И╔╓╔ж╔И╔Й
 Group(pl):	Programowanie/Biblioteki
 Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(pt):	Desenvolvimento/Bibliotecas
 Group(ru):	Разработка/Библиотеки
 Group(uk):	Розробка/Б╕бл╕отеки
 Requires:	%{name} = %{version}
@@ -46,11 +52,14 @@ Pliki naglowkowe i inne do libgcrypt.
 Summary:	Static libgcrypt library
 Summary(pl):	Biblioteka statyczna libgcrypt
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
+Group(cs):	VЩvojovИ prostЬedky/Knihovny
+Group(de):	Entwicklung/Bibliotheken
 Group(es):	Desarrollo/Bibliotecas
 Group(fr):	Development/Librairies
+Group(ja):	Ё╚х╞/╔И╔╓╔ж╔И╔Й
 Group(pl):	Programowanie/Biblioteki
 Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(pt):	Desenvolvimento/Bibliotecas
 Group(ru):	Разработка/Библиотеки
 Group(uk):	Розробка/Б╕бл╕отеки
 Requires:	%{name}-devel = %{version}
