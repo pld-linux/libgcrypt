@@ -1,5 +1,6 @@
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
+#
 Summary:	Cryptographic library based on the code from GnuPG
 Summary(es):	Libgcrypt es una biblioteca general de desarrole embasada em GnuPG
 Summary(pl):	Biblioteka kryptograficzna oparta na kodzie GnuPG
