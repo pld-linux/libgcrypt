@@ -22,7 +22,7 @@ URL:		http://www.gnu.org/directory/security/libgcrypt.html
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.9.3
 BuildRequires:	binutils >= 2:2.12
-BuildRequires:	gcc >= 3.2
+BuildRequires:	gcc >= 5:3.2
 BuildRequires:	libgpg-error-devel >= 0.5
 BuildRequires:	libtool >= 1:1.4.3
 BuildRequires:	texinfo
