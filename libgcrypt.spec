@@ -3,9 +3,9 @@
 %bcond_without	static_libs	# don't build static library
 #
 Summary:	Cryptographic library based on the code from GnuPG
-Summary(es):	Libgcrypt es una biblioteca general de desarrole embasada em GnuPG
-Summary(pl):	Biblioteka kryptograficzna oparta na kodzie GnuPG
-Summary(pt_BR):	libgcrypt È uma biblioteca de criptografia de uso geral baseada no GnuPG
+Summary(es.UTF-8):   Libgcrypt es una biblioteca general de desarrole embasada em GnuPG
+Summary(pl.UTF-8):   Biblioteka kryptograficzna oparta na kodzie GnuPG
+Summary(pt_BR.UTF-8):   libgcrypt √© uma biblioteca de criptografia de uso geral baseada no GnuPG
 Name:		libgcrypt
 Version:	1.2.4
 Release:	1
@@ -36,25 +36,25 @@ algorithms (MD5, RIPE-MD160, SHA-1, TIGER-192), MACs (HMAC for all
 hash algorithms), public key algorithms (RSA, ElGamal, DSA), large
 integer functions, random numbers and a lot of supporting functions.
 
-%description -l pl
-Ten pakiet zawiera bibliotekÍ kryptograficzn± ogÛlnego przeznaczenia,
-opart± na kodzie GnuPG. Biblioteka ta dostarcza funkcje do wszystkich
-podstawowych blokÛw kryptografii: szyfrÛw symetrycznych (AES, DES,
-Blowfish, CAST5, Twofish, Acrfour), algorytmÛw mieszaj±cych (MD5,
-RIPE-MD160, SHA-1, RIGER-192), MAC-Ûw (HMAC dla wszystkich algorytmÛw
-mieszaj±cych), algorytmÛw klucza publicznego (RSA, ElGamal, DSA),
-funkcji duøych liczb ca≥kowitych, liczb losowych i wiele funkcji
+%description -l pl.UTF-8
+Ten pakiet zawiera bibliotekƒô kryptograficznƒÖ og√≥lnego przeznaczenia,
+opartƒÖ na kodzie GnuPG. Biblioteka ta dostarcza funkcje do wszystkich
+podstawowych blok√≥w kryptografii: szyfr√≥w symetrycznych (AES, DES,
+Blowfish, CAST5, Twofish, Acrfour), algorytm√≥w mieszajƒÖcych (MD5,
+RIPE-MD160, SHA-1, RIGER-192), MAC-√≥w (HMAC dla wszystkich algorytm√≥w
+mieszajƒÖcych), algorytm√≥w klucza publicznego (RSA, ElGamal, DSA),
+funkcji du≈ºych liczb ca≈Çkowitych, liczb losowych i wiele funkcji
 pomocniczych.
 
-%description -l pt_BR
-Libgcrypt È uma biblioteca de criptografia de uso geral baseada no
+%description -l pt_BR.UTF-8
+Libgcrypt √© uma biblioteca de criptografia de uso geral baseada no
 GnuPG.
 
 %package devel
 Summary:	Header files etc to develop libgcrypt applications
-Summary(es):	Archivos de desarrollo de libgcrypt
-Summary(pl):	Pliki nag≥Ûwkowe i inne do libgcrypt
-Summary(pt_BR):	Arquivos de desenvolvimento da libgcrypt
+Summary(es.UTF-8):   Archivos de desarrollo de libgcrypt
+Summary(pl.UTF-8):   Pliki nag≈Ç√≥wkowe i inne do libgcrypt
+Summary(pt_BR.UTF-8):   Arquivos de desenvolvimento da libgcrypt
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	libgpg-error-devel >= 0.5
@@ -62,28 +62,28 @@ Requires:	libgpg-error-devel >= 0.5
 %description devel
 Header files etc to develop libgcrypt applications.
 
-%description devel -l pl
-Pliki nag≥Ûwkowe i inne do libgcrypt.
+%description devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe i inne do libgcrypt.
 
-%description devel -l pt_BR
+%description devel -l pt_BR.UTF-8
 Bibliotecas de desenvolvimento para libgcrypt.
 
 %package static
 Summary:	Static libgcrypt library
-Summary(es):	Archivos de desarrollo de libgcrypt - estatico
-Summary(pl):	Biblioteka statyczna libgcrypt
-Summary(pt_BR):	Arquivos de desenvolvimento da libgcrypt - biblioteca est·tica
+Summary(es.UTF-8):   Archivos de desarrollo de libgcrypt - estatico
+Summary(pl.UTF-8):   Biblioteka statyczna libgcrypt
+Summary(pt_BR.UTF-8):   Arquivos de desenvolvimento da libgcrypt - biblioteca est√°tica
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static libgcrypt library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Biblioteka statyczna libgcrypt.
 
-%description static -l pt_BR
-Bibliotecas de desenvolvimento para libgcrypt - est·tico.
+%description static -l pt_BR.UTF-8
+Bibliotecas de desenvolvimento para libgcrypt - est√°tico.
 
 %prep
 %setup -q
