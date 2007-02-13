@@ -17,7 +17,8 @@ Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
 # Source0-md5:	3675d3e74c3a44aed629d9b12a30bb51
 Patch0:		%{name}-no_libnsl.patch
 Patch1:		%{name}-info.patch
-Patch2:         %{name}-sparc64.patch
+Patch2:		%{name}-sparc64.patch
+Patch3:		%{name}-libgcrypt_config.patch
 URL:		http://www.gnu.org/directory/security/libgcrypt.html
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.9.3
@@ -37,14 +38,14 @@ hash algorithms), public key algorithms (RSA, ElGamal, DSA), large
 integer functions, random numbers and a lot of supporting functions.
 
 %description -l pl.UTF-8
-Ten pakiet zawiera bibliotekę kryptograficzną ogólnego przeznaczenia,
-opartą na kodzie GnuPG. Biblioteka ta dostarcza funkcje do wszystkich
-podstawowych bloków kryptografii: szyfrów symetrycznych (AES, DES,
-Blowfish, CAST5, Twofish, Acrfour), algorytmów mieszających (MD5,
-RIPE-MD160, SHA-1, RIGER-192), MAC-ów (HMAC dla wszystkich algorytmów
-mieszających), algorytmów klucza publicznego (RSA, ElGamal, DSA),
-funkcji dużych liczb całkowitych, liczb losowych i wiele funkcji
-pomocniczych.
+Ten pakiet zawiera bibliotekę kryptograficzną ogólnego
+przeznaczenia, opartą na kodzie GnuPG. Biblioteka ta dostarcza
+funkcje do wszystkich podstawowych bloków kryptografii: szyfrów
+symetrycznych (AES, DES, Blowfish, CAST5, Twofish, Acrfour),
+algorytmów mieszających (MD5, RIPE-MD160, SHA-1, RIGER-192), MAC-ów
+(HMAC dla wszystkich algorytmów mieszających), algorytmów klucza
+publicznego (RSA, ElGamal, DSA), funkcji dużych liczb całkowitych,
+liczb losowych i wiele funkcji pomocniczych.
 
 %description -l pt_BR.UTF-8
 Libgcrypt é uma biblioteca de criptografia de uso geral baseada no
@@ -90,8 +91,10 @@ Bibliotecas de desenvolvimento para libgcrypt - estático.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
+rm -f m4/libtool.m4
 %{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
