@@ -3,9 +3,9 @@
 %bcond_without	static_libs	# don't build static library
 #
 Summary:	Cryptographic library based on the code from GnuPG
-Summary(es.UTF-8):   Libgcrypt es una biblioteca general de desarrole embasada em GnuPG
-Summary(pl.UTF-8):   Biblioteka kryptograficzna oparta na kodzie GnuPG
-Summary(pt_BR.UTF-8):   libgcrypt é uma biblioteca de criptografia de uso geral baseada no GnuPG
+Summary(es.UTF-8):	Libgcrypt es una biblioteca general de desarrole embasada em GnuPG
+Summary(pl.UTF-8):	Biblioteka kryptograficzna oparta na kodzie GnuPG
+Summary(pt_BR.UTF-8):	libgcrypt é uma biblioteca de criptografia de uso geral baseada no GnuPG
 Name:		libgcrypt
 Version:	1.2.4
 Release:	1
@@ -52,9 +52,9 @@ GnuPG.
 
 %package devel
 Summary:	Header files etc to develop libgcrypt applications
-Summary(es.UTF-8):   Archivos de desarrollo de libgcrypt
-Summary(pl.UTF-8):   Pliki nagłówkowe i inne do libgcrypt
-Summary(pt_BR.UTF-8):   Arquivos de desenvolvimento da libgcrypt
+Summary(es.UTF-8):	Archivos de desarrollo de libgcrypt
+Summary(pl.UTF-8):	Pliki nagłówkowe i inne do libgcrypt
+Summary(pt_BR.UTF-8):	Arquivos de desenvolvimento da libgcrypt
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	libgpg-error-devel >= 0.5
@@ -70,9 +70,9 @@ Bibliotecas de desenvolvimento para libgcrypt.
 
 %package static
 Summary:	Static libgcrypt library
-Summary(es.UTF-8):   Archivos de desarrollo de libgcrypt - estatico
-Summary(pl.UTF-8):   Biblioteka statyczna libgcrypt
-Summary(pt_BR.UTF-8):   Arquivos de desenvolvimento da libgcrypt - biblioteca estática
+Summary(es.UTF-8):	Archivos de desarrollo de libgcrypt - estatico
+Summary(pl.UTF-8):	Biblioteka statyczna libgcrypt
+Summary(pt_BR.UTF-8):	Arquivos de desenvolvimento da libgcrypt - biblioteca estática
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
