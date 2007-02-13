@@ -38,14 +38,14 @@ hash algorithms), public key algorithms (RSA, ElGamal, DSA), large
 integer functions, random numbers and a lot of supporting functions.
 
 %description -l pl.UTF-8
-Ten pakiet zawiera bibliotekę kryptograficzną ogólnego
-przeznaczenia, opartą na kodzie GnuPG. Biblioteka ta dostarcza
-funkcje do wszystkich podstawowych bloków kryptografii: szyfrów
-symetrycznych (AES, DES, Blowfish, CAST5, Twofish, Acrfour),
-algorytmów mieszających (MD5, RIPE-MD160, SHA-1, RIGER-192), MAC-ów
-(HMAC dla wszystkich algorytmów mieszających), algorytmów klucza
-publicznego (RSA, ElGamal, DSA), funkcji dużych liczb całkowitych,
-liczb losowych i wiele funkcji pomocniczych.
+Ten pakiet zawiera bibliotekę kryptograficzną ogólnego przeznaczenia,
+opartą na kodzie GnuPG. Biblioteka ta dostarcza funkcje do wszystkich
+podstawowych bloków kryptografii: szyfrów symetrycznych (AES, DES,
+Blowfish, CAST5, Twofish, Acrfour), algorytmów mieszających (MD5,
+RIPE-MD160, SHA-1, RIGER-192), MAC-ów (HMAC dla wszystkich algorytmów
+mieszających), algorytmów klucza publicznego (RSA, ElGamal, DSA),
+funkcji dużych liczb całkowitych, liczb losowych i wiele funkcji
+pomocniczych.
 
 %description -l pt_BR.UTF-8
 Libgcrypt é uma biblioteca de criptografia de uso geral baseada no
