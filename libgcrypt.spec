@@ -7,18 +7,17 @@ Summary(es.UTF-8):	Libgcrypt es una biblioteca general de desarrole embasada em 
 Summary(pl.UTF-8):	Biblioteka kryptograficzna oparta na kodzie GnuPG
 Summary(pt_BR.UTF-8):	libgcrypt é uma biblioteca de criptografia de uso geral baseada no GnuPG
 Name:		libgcrypt
-Version:	1.2.4
-Release:	2
-License:	LGPL
+Version:	1.4.0
+Release:	1
+License:	LGPL v2.1+
 Group:		Libraries
 # devel versions:
 #Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/libgcrypt/%{name}-%{version}.tar.gz
 Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
-# Source0-md5:	3675d3e74c3a44aed629d9b12a30bb51
-Patch0:		%{name}-no_libnsl.patch
-Patch1:		%{name}-info.patch
-Patch2:		%{name}-sparc64.patch
-Patch3:		%{name}-libgcrypt_config.patch
+# Source0-md5:	b013f798a1088afb07336bce5a9c24c5
+Patch0:		%{name}-info.patch
+Patch1:		%{name}-sparc64.patch
+Patch2:		%{name}-libgcrypt_config.patch
 URL:		http://www.gnu.org/directory/security/libgcrypt.html
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.9.3
@@ -91,7 +90,6 @@ Bibliotecas de desenvolvimento para libgcrypt - estático.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 rm -f m4/libtool.m4
@@ -113,8 +111,8 @@ rm -rf $RPM_BUILD_ROOT
 	m4datadir=%{_aclocaldir}
 
 install -d $RPM_BUILD_ROOT/%{_lib}
-mv -f $RPM_BUILD_ROOT%{_libdir}/libgcrypt.so.*.*.* $RPM_BUILD_ROOT/%{_lib}
-ln -sf /%{_lib}/$(cd $RPM_BUILD_ROOT/%{_lib}; echo libgcrypt.so.*.*.*) \
+mv -f $RPM_BUILD_ROOT%{_libdir}/libgcrypt.so.* $RPM_BUILD_ROOT/%{_lib}
+ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libgcrypt.so.*.*.*) \
 	$RPM_BUILD_ROOT%{_libdir}/libgcrypt.so
 
 %clean
@@ -131,17 +129,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS THANKS NEWS README ChangeLog
+%doc AUTHORS ChangeLog NEWS README THANKS TODO
 %attr(755,root,root) /%{_lib}/libgcrypt.so.*.*.*
+%attr(755,root,root) %ghost /%{_lib}/libgcrypt.so.11
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/libgcrypt-config
 %attr(755,root,root) %{_libdir}/libgcrypt.so
 %{_libdir}/libgcrypt.la
-%{_infodir}/*.info*
-%{_includedir}/*.h
-%{_aclocaldir}/*.m4
+%{_infodir}/gcrypt.info*
+%{_includedir}/gcrypt*.h
+%{_aclocaldir}/libgcrypt.m4
 
 %if %{with static_libs}
 %files static
