@@ -1,0 +1,4 @@
+- added full Source url,
+- added static subpackage,
+- some cleanups.
+  NOTE: still missing prepare correctly documemtation (preferred info format).
