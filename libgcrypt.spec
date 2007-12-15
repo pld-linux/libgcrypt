@@ -19,7 +19,7 @@ Patch0:		%{name}-info.patch
 Patch1:		%{name}-sparc64.patch
 Patch2:		%{name}-libgcrypt_config.patch
 URL:		http://www.gnu.org/directory/security/libgcrypt.html
-BuildRequires:	autoconf >= 2.59
+BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.9.3
 BuildRequires:	binutils >= 2:2.12
 BuildRequires:	gcc >= 5:3.2
