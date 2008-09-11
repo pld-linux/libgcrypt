@@ -7,14 +7,14 @@ Summary(es.UTF-8):	Libgcrypt es una biblioteca general de desarrole embasada em 
 Summary(pl.UTF-8):	Biblioteka kryptograficzna oparta na kodzie GnuPG
 Summary(pt_BR.UTF-8):	libgcrypt é uma biblioteca de criptografia de uso geral baseada no GnuPG
 Name:		libgcrypt
-Version:	1.4.1
-Release:	2
+Version:	1.4.2
+Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 # devel versions:
 #Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/libgcrypt/%{name}-%{version}.tar.gz
 Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
-# Source0-md5:	26703ecef4bbe113b8e6a87572b80b32
+# Source0-md5:	0d27005ff43ecf3d96ae02d99bf793ba
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-sparc64.patch
 Patch2:		%{name}-libgcrypt_config.patch
@@ -121,15 +121,17 @@ rm -rf $RPM_BUILD_ROOT
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
-%post	devel -p	/sbin/postshell
+%post	devel -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	devel -p	/sbin/postshell
+%postun	devel -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README THANKS TODO
+%attr(755,root,root) %{_bindir}/dumpsexp
+%attr(755,root,root) %{_bindir}/hmac256
 %attr(755,root,root) /%{_lib}/libgcrypt.so.*.*.*
 %attr(755,root,root) %ghost /%{_lib}/libgcrypt.so.11
 
