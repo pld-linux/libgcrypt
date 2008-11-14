@@ -20,10 +20,10 @@ Patch1:		%{name}-sparc64.patch
 Patch2:		%{name}-libgcrypt_config.patch
 URL:		http://www.gnu.org/directory/security/libgcrypt.html
 BuildRequires:	autoconf >= 2.60
-BuildRequires:	automake >= 1:1.9.3
+BuildRequires:	automake >= 1:1.10
 BuildRequires:	binutils >= 2:2.12
 BuildRequires:	gcc >= 5:3.2
-BuildRequires:	libgpg-error-devel >= 0.5
+BuildRequires:	libgpg-error-devel >= 1.4
 BuildRequires:	libtool >= 1:1.4.3
 BuildRequires:	texinfo
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -57,7 +57,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe i inne do libgcrypt
 Summary(pt_BR.UTF-8):	Arquivos de desenvolvimento da libgcrypt
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	libgpg-error-devel >= 0.5
+Requires:	libgpg-error-devel >= 1.4
 
 %description devel
 Header files etc to develop libgcrypt applications.
