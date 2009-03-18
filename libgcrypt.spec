@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_without	static_libs	# don't build static library
+%bcond_without	dietlibc	# don't build static dietlibc library
 #
 Summary:	Cryptographic library based on the code from GnuPG
 Summary(es.UTF-8):	Libgcrypt es una biblioteca general de desarrole embasada em GnuPG
@@ -8,7 +8,7 @@ Summary(pl.UTF-8):	Biblioteka kryptograficzna oparta na kodzie GnuPG
 Summary(pt_BR.UTF-8):	libgcrypt é uma biblioteca de criptografia de uso geral baseada no GnuPG
 Name:		libgcrypt
 Version:	1.4.4
-Release:	1
+Release:	2
 License:	LGPL v2.1+
 Group:		Libraries
 # devel versions:
@@ -22,11 +22,16 @@ URL:		http://www.gnu.org/directory/security/libgcrypt.html
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.10
 BuildRequires:	binutils >= 2:2.12
+%{?with_dietlibc:BuildRequires:	dietlibc-static >= 2:0.31-5}
 BuildRequires:	gcc >= 5:3.2
 BuildRequires:	libgpg-error-devel >= 1.4
 BuildRequires:	libtool >= 1:1.4.3
 BuildRequires:	texinfo
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+# for some reason known only to rpm there must be "\\|" not "\|" here
+%define		dietarch	%(echo %{_target_cpu} | sed -e 's/i.86\\|pentium.\\|athlon/i386/;s/amd64/x86_64/;s/armv.*/arm/')
+%define		dietlibdir	%{_prefix}/lib/dietlibc/lib-%{dietarch}
 
 %description
 This is a general purpose cryptographic library based on the code from
@@ -85,6 +90,18 @@ Biblioteka statyczna libgcrypt.
 %description static -l pt_BR.UTF-8
 Bibliotecas de desenvolvimento para libgcrypt - estático.
 
+%package dietlibc
+Summary:	Static dietlibc libgcrypt library
+Summary(pl.UTF-8):	Biblioteka statyczna dietlibc libgcrypt
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description dietlibc
+Static dietlibc libgcrypt library.
+
+%description dietlibc -l pl.UTF-8
+Biblioteka statyczna dietlibc libgcrypt.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -97,14 +114,30 @@ rm m4/libtool.m4
 %{__aclocal} -I m4
 %{__autoconf}
 %{__automake}
+
+%if %{with dietlibc}
 %configure \
+	CC="diet %{__cc} -Os %{rpmldflags}" \
 	--enable-static \
-	%{!?with_static_libs:--disable-static}
+	--disable-shared
+
+# libtool sucks, build just the libs
+%{__make} -C cipher
+%{__make} -C mpi
+%{__make} -C random
+%{__make} -C src
+mv src/.libs/libgcrypt.a diet-libgcrypt.a
+%{__make} clean
+%endif
+
+%configure \
+	--enable-static
 
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+%{?with_dietlibc:install -d $RPM_BUILD_ROOT%{dietlibdir}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -114,6 +147,8 @@ install -d $RPM_BUILD_ROOT/%{_lib}
 mv -f $RPM_BUILD_ROOT%{_libdir}/libgcrypt.so.* $RPM_BUILD_ROOT/%{_lib}
 ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libgcrypt.so.*.*.*) \
 	$RPM_BUILD_ROOT%{_libdir}/libgcrypt.so
+
+%{?with_dietlibc:install diet-libgcrypt.a $RPM_BUILD_ROOT%{dietlibdir}/libgcrypt.a}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -144,8 +179,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/gcrypt*.h
 %{_aclocaldir}/libgcrypt.m4
 
-%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libgcrypt.a
+
+%if %{with dietlibc}
+%files dietlibc
+%defattr(644,root,root,755)
+%{dietlibdir}/libgcrypt.a
 %endif
