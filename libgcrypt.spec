@@ -117,7 +117,7 @@ rm m4/libtool.m4
 
 %if %{with dietlibc}
 %configure \
-	CC="diet %{__cc} -Os %{rpmldflags}" \
+	CC="diet %{__cc} %{rpmcflags} %{rpmldflags} -Os" \
 	--enable-static \
 	--disable-shared
 
