@@ -7,14 +7,14 @@ Summary(es.UTF-8):	Libgcrypt es una biblioteca general de desarrole embasada em 
 Summary(pl.UTF-8):	Biblioteka kryptograficzna oparta na kodzie GnuPG
 Summary(pt_BR.UTF-8):	libgcrypt é uma biblioteca de criptografia de uso geral baseada no GnuPG
 Name:		libgcrypt
-Version:	1.4.5
+Version:	1.4.6
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 # devel versions:
 #Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/libgcrypt/%{name}-%{version}.tar.gz
 Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
-# Source0-md5:	cc2017ad09b4543f8b3b5e9a53cfd89d
+# Source0-md5:	dbf99425a4fe9217c84ce3a35d938634
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-libgcrypt_config.patch
 URL:		http://www.gnu.org/directory/security/libgcrypt.html
