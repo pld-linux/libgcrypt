@@ -7,25 +7,27 @@ Summary(es.UTF-8):	Libgcrypt es una biblioteca general de desarrole embasada em 
 Summary(pl.UTF-8):	Biblioteka kryptograficzna oparta na kodzie GnuPG
 Summary(pt_BR.UTF-8):	libgcrypt é uma biblioteca de criptografia de uso geral baseada no GnuPG
 Name:		libgcrypt
-Version:	1.4.6
+Version:	1.5.0
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 # devel versions:
 #Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/libgcrypt/%{name}-%{version}.tar.gz
 Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
-# Source0-md5:	dbf99425a4fe9217c84ce3a35d938634
+# Source0-md5:	693f9c64d50c908bc4d6e01da3ff76d8
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-libgcrypt_config.patch
+Patch2:		%{name}-poll.patch
 URL:		http://www.gnu.org/directory/security/libgcrypt.html
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.10
 BuildRequires:	binutils >= 2:2.12
 %{?with_dietlibc:BuildRequires:	dietlibc-static >= 2:0.31-5}
 BuildRequires:	gcc >= 5:3.2
-BuildRequires:	libgpg-error-devel >= 1.4
-BuildRequires:	libtool >= 1:1.4.3
+BuildRequires:	libgpg-error-devel >= 1.8
+BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	texinfo
+Requires:	libgpg-error >= 1.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # for some reason known only to rpm there must be "\\|" not "\|" here
@@ -61,7 +63,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe i inne do libgcrypt
 Summary(pt_BR.UTF-8):	Arquivos de desenvolvimento da libgcrypt
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	libgpg-error-devel >= 1.4
+Requires:	libgpg-error-devel >= 1.8
 
 %description devel
 Header files etc to develop libgcrypt applications.
@@ -105,6 +107,7 @@ Biblioteka statyczna dietlibc libgcrypt.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__rm} m4/libtool.m4
@@ -120,6 +123,7 @@ Biblioteka statyczna dietlibc libgcrypt.
 	--disable-shared
 
 # libtool sucks, build just the libs
+%{__make} -C compat
 %{__make} -C cipher
 %{__make} -C mpi
 %{__make} -C random
