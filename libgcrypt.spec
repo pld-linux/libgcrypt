@@ -1,29 +1,30 @@
 #
 # Conditional build:
 %bcond_without	dietlibc	# don't build static dietlibc library
+%bcond_without	libcap		# Linux capabilities usage
 #
 Summary:	Cryptographic library based on the code from GnuPG
 Summary(es.UTF-8):	Libgcrypt es una biblioteca general de desarrole embasada em GnuPG
 Summary(pl.UTF-8):	Biblioteka kryptograficzna oparta na kodzie GnuPG
 Summary(pt_BR.UTF-8):	libgcrypt é uma biblioteca de criptografia de uso geral baseada no GnuPG
 Name:		libgcrypt
-Version:	1.5.0
+Version:	1.5.1
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-# devel versions:
-#Source0:	ftp://ftp.gnupg.org/gcrypt/alpha/libgcrypt/%{name}-%{version}.tar.gz
 Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
-# Source0-md5:	693f9c64d50c908bc4d6e01da3ff76d8
+# Source0-md5:	5be3cc6e105db5d64c318127a5c10c94
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-libgcrypt_config.patch
 Patch2:		%{name}-poll.patch
+Patch3:		%{name}-am.patch
 URL:		http://www.gnu.org/directory/security/libgcrypt.html
 BuildRequires:	autoconf >= 2.60
-BuildRequires:	automake >= 1:1.10
+BuildRequires:	automake >= 1:1.11
 BuildRequires:	binutils >= 2:2.12
 %{?with_dietlibc:BuildRequires:	dietlibc-static >= 2:0.31-5}
 BuildRequires:	gcc >= 5:3.2
+%{?with_libcap:BuildRequires:	libcap-devel}
 BuildRequires:	libgpg-error-devel >= 1.8
 BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	texinfo
@@ -63,6 +64,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe i inne do libgcrypt
 Summary(pt_BR.UTF-8):	Arquivos de desenvolvimento da libgcrypt
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+%{?with_libcap:Requires:	libcap-devel}
 Requires:	libgpg-error-devel >= 1.8
 
 %description devel
@@ -108,6 +110,7 @@ Biblioteka statyczna dietlibc libgcrypt.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %{__rm} m4/libtool.m4
@@ -133,7 +136,8 @@ mv src/.libs/libgcrypt.a diet-libgcrypt.a
 %endif
 
 %configure \
-	--enable-static
+	--enable-static \
+	%{?with_libcap:--with-capabilities}
 
 %{__make}
 

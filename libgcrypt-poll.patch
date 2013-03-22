@@ -1,5 +1,5 @@
---- libgcrypt-1.5.0/random/rndlinux.c.orig	2011-02-04 20:16:03.000000000 +0100
-+++ libgcrypt-1.5.0/random/rndlinux.c	2011-07-03 11:04:00.391674161 +0200
+--- libgcrypt-1.5.1/random/rndlinux.c.orig	2012-11-29 15:22:35.000000000 +0100
++++ libgcrypt-1.5.1/random/rndlinux.c	2013-03-22 22:16:30.431614318 +0100
 @@ -32,6 +32,7 @@
  #include <string.h>
  #include <unistd.h>
@@ -8,7 +8,7 @@
  #include "types.h"
  #include "g10lib.h"
  #include "rand-internal.h"
-@@ -130,15 +131,12 @@
+@@ -130,24 +131,13 @@
                   return with something we will actually use 100ms. */
    while (length)
      {
@@ -17,23 +17,32 @@
 +      struct pollfd fds;
        int rc;
  
--      FD_ZERO(&rfds);
--      FD_SET(fd, &rfds);
--      tv.tv_sec = delay;
--      tv.tv_usec = delay? 0 : 100000;
--      if ( !(rc=select(fd+1, &rfds, NULL, NULL, &tv)) )
-+      fds.fd = fd;
-+      fds.events = POLLIN;
-+      if ( !(rc=poll(&fds, 1, delay ? (delay*1000) : 100)) )
+-      /* If the system has no limit on the number of file descriptors
+-         and we encounter an fd which is larger than the fd_set size,
+-         we don't use the select at all.  The select code is only used
+-         to emit progress messages.  A better solution would be to
+-         fall back to poll() if available.  */
+-#ifdef FD_SETSIZE
+-      if (fd < FD_SETSIZE)
+-#endif
          {
-           if (!any_need_entropy || last_so_far != (want - length) )
+-          FD_ZERO(&rfds);
+-          FD_SET(fd, &rfds);
+-          tv.tv_sec = delay;
+-          tv.tv_usec = delay? 0 : 100000;
+-          if ( !(rc=select(fd+1, &rfds, NULL, NULL, &tv)) )
++          fds.fd = fd;
++          fds.events = POLLIN;
++          if ( !(rc=poll(&fds, 1, delay ? (delay*1000) : 100)) )
              {
-@@ -152,7 +150,7 @@
- 	}
-       else if( rc == -1 )
-         {
--          log_error ("select() error: %s\n", strerror(errno));
-+          log_error ("poll() error: %s\n", strerror(errno));
-           if (!delay)
-             delay = 1; /* Use 1 second if we encounter an error before
+               if (!any_need_entropy || last_so_far != (want - length) )
+                 {
+@@ -161,7 +151,7 @@
+             }
+           else if( rc == -1 )
+             {
+-              log_error ("select() error: %s\n", strerror(errno));
++              log_error ("poll() error: %s\n", strerror(errno));
+               if (!delay)
+                 delay = 1; /* Use 1 second if we encounter an error before
                            we have ever blocked.  */
