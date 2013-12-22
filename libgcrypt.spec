@@ -8,12 +8,12 @@ Summary(es.UTF-8):	Libgcrypt es una biblioteca general de desarrole embasada em 
 Summary(pl.UTF-8):	Biblioteka kryptograficzna oparta na kodzie GnuPG
 Summary(pt_BR.UTF-8):	libgcrypt é uma biblioteca de criptografia de uso geral baseada no GnuPG
 Name:		libgcrypt
-Version:	1.5.3
+Version:	1.6.0
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
-# Source0-md5:	993159b2924ae7b0e4eaff0743c2db35
+# Source0-md5:	984079ff16fb644dd80d4dddc5fc1a73
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-libgcrypt_config.patch
 Patch2:		%{name}-poll.patch
@@ -24,10 +24,10 @@ BuildRequires:	binutils >= 2:2.12
 %{?with_dietlibc:BuildRequires:	dietlibc-static >= 2:0.31-5}
 BuildRequires:	gcc >= 5:3.2
 %{?with_libcap:BuildRequires:	libcap-devel}
-BuildRequires:	libgpg-error-devel >= 1.8
+BuildRequires:	libgpg-error-devel >= 1.11
 BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	texinfo
-Requires:	libgpg-error >= 1.8
+Requires:	libgpg-error >= 1.11
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # for some reason known only to rpm there must be "\\|" not "\|" here
@@ -64,7 +64,7 @@ Summary(pt_BR.UTF-8):	Arquivos de desenvolvimento da libgcrypt
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 %{?with_libcap:Requires:	libcap-devel}
-Requires:	libgpg-error-devel >= 1.8
+Requires:	libgpg-error-devel >= 1.11
 
 %description devel
 Header files etc to develop libgcrypt applications.
@@ -128,7 +128,8 @@ Biblioteka statyczna dietlibc libgcrypt.
 %{__make} -C cipher
 %{__make} -C mpi
 %{__make} -C random
-%{__make} -C src
+%{__make} -C src \
+	PROGRAMS=
 mv src/.libs/libgcrypt.a diet-libgcrypt.a
 %{__make} clean
 %endif
@@ -171,8 +172,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog NEWS README THANKS TODO
 %attr(755,root,root) %{_bindir}/dumpsexp
 %attr(755,root,root) %{_bindir}/hmac256
+%attr(755,root,root) %{_bindir}/mpicalc
 %attr(755,root,root) /%{_lib}/libgcrypt.so.*.*.*
-%attr(755,root,root) %ghost /%{_lib}/libgcrypt.so.11
+%attr(755,root,root) %ghost /%{_lib}/libgcrypt.so.20
+%{_mandir}/man1/hmac256.1*
 
 %files devel
 %defattr(644,root,root,755)
