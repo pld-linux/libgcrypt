@@ -17,7 +17,7 @@ Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-libgcrypt_config.patch
 Patch2:		%{name}-poll.patch
-URL:		http://www.gnu.org/directory/security/libgcrypt.html
+URL:		http://directory.fsf.org/wiki/Libgcrypt
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	binutils >= 2:2.12
