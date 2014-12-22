@@ -2,18 +2,18 @@
 # Conditional build:
 %bcond_without	dietlibc	# don't build static dietlibc library
 %bcond_with	libcap		# Linux capabilities usage
-#
+
 Summary:	Cryptographic library based on the code from GnuPG
 Summary(es.UTF-8):	Libgcrypt es una biblioteca general de desarrole embasada em GnuPG
 Summary(pl.UTF-8):	Biblioteka kryptograficzna oparta na kodzie GnuPG
 Summary(pt_BR.UTF-8):	libgcrypt é uma biblioteca de criptografia de uso geral baseada no GnuPG
 Name:		libgcrypt
-Version:	1.5.3
+Version:	1.5.4
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
-# Source0-md5:	993159b2924ae7b0e4eaff0743c2db35
+# Source0-md5:	ac4eb5091806d86a8575d0b8dcd2b9db
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-libgcrypt_config.patch
 Patch2:		%{name}-poll.patch
@@ -118,8 +118,12 @@ Biblioteka statyczna dietlibc libgcrypt.
 %{__automake}
 
 %if %{with dietlibc}
+__cc="%{__cc}"
 %configure \
-	CC="diet %{__cc} %{rpmcflags} %{rpmldflags} -Os" \
+	CC="diet ${__cc#ccache } %{rpmcflags} %{rpmldflags} -Os" \
+%if "%{?configure_cache}" == "1"
+	--cache-file=%{?configure_cache_file}%{!?configure_cache_file:configure}-diet.cache \
+%endif
 	--enable-static \
 	--disable-shared
 
