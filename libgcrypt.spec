@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_without	dietlibc	# don't build static dietlibc library
+%bcond_with	dietlibc	# don't build static dietlibc library
 %bcond_with	libcap		# Linux capabilities usage
 #
 Summary:	Cryptographic library based on the code from GnuPG
