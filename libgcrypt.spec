@@ -58,12 +58,15 @@ GnuPG.
 
 %package tools
 Summary:        Additional binary tools for libgcrypt
-Summary(pl.UTF-8):      Dodatkowe narzędzia dla libgcrypt
+Summary(pl.UTF-8):      Dodatkowe narzędzia dla biblioteki libgcrypt
 Group:          Development/Libraries
 Requires:       %{name} = %{version}-%{release}
 
 %description tools
-Additional binary tools for libgcrypt together with manual page.
+Additional binary tools for libgcrypt.
+
+%description tools -l pl.UTF-8
+Dodatkowe narzędzia dla biblioteki libgcrypt.
 
 %package devel
 Summary:	Header files etc to develop libgcrypt applications
