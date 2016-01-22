@@ -9,7 +9,7 @@ Summary(pl.UTF-8):	Biblioteka kryptograficzna oparta na kodzie GnuPG
 Summary(pt_BR.UTF-8):	libgcrypt é uma biblioteca de criptografia de uso geral baseada no GnuPG
 Name:		libgcrypt
 Version:	1.6.4
-Release:	1
+Release:	2
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
@@ -55,6 +55,15 @@ pomocniczych.
 %description -l pt_BR.UTF-8
 Libgcrypt é uma biblioteca de criptografia de uso geral baseada no
 GnuPG.
+
+%package tools
+Summary:        Additional binary tools for libgcrypt
+Summary(pl.UTF-8):      Dodatkowe narzędzia dla libgcrypt
+Group:          Development/Libraries
+Requires:       %{name} = %{version}-%{release}
+
+%description tools
+Additional binary tools for libgcrypt together with manual page.
 
 %package devel
 Summary:	Header files etc to develop libgcrypt applications
@@ -170,11 +179,14 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README THANKS TODO
+%attr(755,root,root) /%{_lib}/libgcrypt.so.*.*.*
+%attr(755,root,root) %ghost /%{_lib}/libgcrypt.so.20
+
+%files tools
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/dumpsexp
 %attr(755,root,root) %{_bindir}/hmac256
 %attr(755,root,root) %{_bindir}/mpicalc
-%attr(755,root,root) /%{_lib}/libgcrypt.so.*.*.*
-%attr(755,root,root) %ghost /%{_lib}/libgcrypt.so.20
 %{_mandir}/man1/hmac256.1*
 
 %files devel
