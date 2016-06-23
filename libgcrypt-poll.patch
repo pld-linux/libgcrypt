@@ -1,14 +1,14 @@
---- libgcrypt-1.6.0/random/rndlinux.c.orig	2013-12-16 11:44:25.000000000 +0100
-+++ libgcrypt-1.6.0/random/rndlinux.c	2013-12-22 08:41:51.366559962 +0100
+--- libgcrypt-1.7.1/random/rndlinux.c.orig	2016-06-08 18:18:17.000000000 +0200
++++ libgcrypt-1.7.1/random/rndlinux.c	2016-06-22 22:26:14.692219129 +0200
 @@ -32,6 +32,7 @@
  #include <string.h>
  #include <unistd.h>
  #include <fcntl.h>
 +#include <poll.h>
- #include "types.h"
- #include "g10lib.h"
- #include "rand-internal.h"
-@@ -179,8 +180,7 @@
+ #if defined(__linux__) && defined(HAVE_SYSCALL)
+ # include <sys/syscall.h>
+ #endif
+@@ -191,8 +192,7 @@
                   return with something we will actually use 100ms. */
    while (length)
      {
@@ -18,7 +18,7 @@
        int rc;
  
        /* If we collected some bytes update the progress indicator.  We
-@@ -195,20 +195,10 @@
+@@ -207,20 +207,10 @@
            any_need_entropy = 1;
          }
  
@@ -30,20 +30,19 @@
 -#ifdef FD_SETSIZE
 -      if (fd < FD_SETSIZE)
 -#endif
--        {
+         {
 -          FD_ZERO(&rfds);
 -          FD_SET(fd, &rfds);
 -          tv.tv_sec = delay;
 -          tv.tv_usec = delay? 0 : 100000;
 -          if ( !(rc=select(fd+1, &rfds, NULL, NULL, &tv)) )
-+        {
 +          fds.fd = fd;
 +          fds.events = POLLIN;
 +          if ( !(rc=poll(&fds, 1, delay ? (delay*1000) : 100)) )
              {
                any_need_entropy = 1;
                delay = 3; /* Use 3 seconds henceforth.  */
-@@ -216,7 +206,7 @@
+@@ -228,7 +218,7 @@
              }
            else if( rc == -1 )
              {
