@@ -8,12 +8,12 @@ Summary(es.UTF-8):	Libgcrypt es una biblioteca general de desarrole embasada em 
 Summary(pl.UTF-8):	Biblioteka kryptograficzna oparta na kodzie GnuPG
 Summary(pt_BR.UTF-8):	libgcrypt é uma biblioteca de criptografia de uso geral baseada no GnuPG
 Name:		libgcrypt
-Version:	1.7.8
+Version:	1.8.0
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
-# Source0-md5:	34fd2e6d230cbe56799cdf7df05f56c5
+# Source0-md5:	530db74602b558209f9ad7356a680971
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-libgcrypt_config.patch
 Patch2:		%{name}-poll.patch
@@ -24,10 +24,10 @@ BuildRequires:	binutils >= 2:2.12
 %{?with_dietlibc:BuildRequires:	dietlibc-static >= 2:0.31-5}
 BuildRequires:	gcc >= 5:3.2
 %{?with_libcap:BuildRequires:	libcap-devel}
-BuildRequires:	libgpg-error-devel >= 1.13
+BuildRequires:	libgpg-error-devel >= 1.25
 BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	texinfo
-Requires:	libgpg-error >= 1.13
+Requires:	libgpg-error >= 1.25
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # for some reason known only to rpm there must be "\\|" not "\|" here
@@ -76,7 +76,7 @@ Summary(pt_BR.UTF-8):	Arquivos de desenvolvimento da libgcrypt
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 %{?with_libcap:Requires:	libcap-devel}
-Requires:	libgpg-error-devel >= 1.13
+Requires:	libgpg-error-devel >= 1.25
 
 %description devel
 Header files etc to develop libgcrypt applications.
