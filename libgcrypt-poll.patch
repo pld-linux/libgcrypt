@@ -5,9 +5,9 @@
  #include <unistd.h>
  #include <fcntl.h>
 +#include <poll.h>
- #if defined(__linux__) && defined(HAVE_SYSCALL)
+ #if defined(__linux__) || !defined(HAVE_GETENTROPY)
+ #ifdef HAVE_SYSCALL
  # include <sys/syscall.h>
- #endif
 @@ -216,8 +217,7 @@
                   return with something we will actually use 100ms. */
    while (length)
