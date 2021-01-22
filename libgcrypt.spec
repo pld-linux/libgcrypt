@@ -18,6 +18,7 @@ Patch0:		%{name}-info.patch
 Patch1:		%{name}-libgcrypt_config.patch
 Patch2:		%{name}-poll.patch
 Patch3:		kdf-selftest.patch
+Patch4:		0001-tests-basic-fix-build-on-ARM32-when-NEON-disabled.patch
 URL:		https://directory.fsf.org/wiki/Libgcrypt
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.14
@@ -123,6 +124,7 @@ Biblioteka statyczna dietlibc libgcrypt.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 %{__rm} m4/libtool.m4

@@ -1,0 +1,41 @@
+From eb1aa965124ddd831fe569c70acc3459a6a93f87 Mon Sep 17 00:00:00 2001
+From: Jussi Kivilinna <jussi.kivilinna@iki.fi>
+Date: Tue, 19 Jan 2021 20:50:58 +0200
+Subject: [PATCH] tests/basic: fix build on ARM32 when NEON disabled
+
+* tests/basic.c (CLUTTER_VECTOR_REGISTER_NEON)
+(CLUTTER_VECTOR_REGISTER_AARCH64): Remove check for __ARM_FEATURE_SIMD32.
+--
+
+Cluttering of NEON vector registers was enabled even if NEON was
+not active for current compiler target. Issue was caused by
+enabling NEON cluttering by wrong feature macro __ARM_FEATURE_SIMD32.
+
+GnuPG-bug-id: 5251
+Signed-off-by: Jussi Kivilinna <jussi.kivilinna@iki.fi>
+---
+ tests/basic.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/tests/basic.c b/tests/basic.c
+index 46e4c0f8..8b333bae 100644
+--- a/tests/basic.c
++++ b/tests/basic.c
+@@ -223,12 +223,12 @@ progress_handler (void *cb_data, const char *what, int printchar,
+ # define CLUTTER_VECTOR_REGISTER_COUNT 8
+ #elif defined(HAVE_COMPATIBLE_GCC_AARCH64_PLATFORM_AS) && \
+       defined(HAVE_GCC_INLINE_ASM_AARCH64_NEON) && \
+-      (defined(__ARM_FEATURE_SIMD32) || defined(__ARM_NEON))
++      defined(__ARM_NEON)
+ # define CLUTTER_VECTOR_REGISTER_AARCH64 1
+ # define CLUTTER_VECTOR_REGISTER_COUNT 32
+ #elif defined(HAVE_COMPATIBLE_GCC_ARM_PLATFORM_AS) && \
+       defined(HAVE_GCC_INLINE_ASM_NEON) && \
+-      (defined(__ARM_FEATURE_SIMD32) || defined(__ARM_NEON))
++      defined(__ARM_NEON)
+ # define CLUTTER_VECTOR_REGISTER_NEON 1
+ # define CLUTTER_VECTOR_REGISTER_COUNT 16
+ #endif
+-- 
+2.27.0
+
