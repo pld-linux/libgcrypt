@@ -5,9 +5,9 @@
  #include <unistd.h>
  #include <fcntl.h>
 +#include <poll.h>
- #if defined(__linux__) || !defined(HAVE_GETENTROPY)
- #ifdef HAVE_SYSCALL
- # include <sys/syscall.h>
+ #if defined(__APPLE__) && defined(__MACH__)
+ extern int getentropy (void *buf, size_t buflen) __attribute__ ((weak_import));
+ #define HAVE_GETENTROPY
 @@ -216,8 +217,7 @@
                   return with something we will actually use 100ms. */
    while (length)
