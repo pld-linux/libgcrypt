@@ -6,8 +6,8 @@
  #include <fcntl.h>
 +#include <poll.h>
  #if defined(__APPLE__) && defined(__MACH__)
- extern int getentropy (void *buf, size_t buflen) __attribute__ ((weak_import));
- #define HAVE_GETENTROPY
+ #include <Availability.h>
+ #ifdef __MAC_10_11
 @@ -216,8 +217,7 @@
                   return with something we will actually use 100ms. */
    while (length)
@@ -17,7 +17,7 @@
 +      struct pollfd fds;
        int rc;
  
-       /* If we have a modern Linux kernel and we want to read from the
+       /* If we have a modern operating system, we first try to use the new
 @@ -276,21 +276,11 @@
            any_need_entropy = 1;
          }

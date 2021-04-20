@@ -11,4 +11,4 @@
 +* libgcrypt: (gcrypt).			Cryptographic function library
  @end direntry
  
- 
+ @c A couple of macros with no effect on texinfo
