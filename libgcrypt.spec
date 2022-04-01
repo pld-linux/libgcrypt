@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_with	dietlibc	# don't build static dietlibc library
+%bcond_with	dietlibc	# static dietlibc library
 %bcond_with	libcap		# Linux capabilities usage
 #
 Summary:	Cryptographic library based on the code from GnuPG
@@ -8,15 +8,14 @@ Summary(es.UTF-8):	Libgcrypt es una biblioteca general de desarrole embasada em 
 Summary(pl.UTF-8):	Biblioteka kryptograficzna oparta na kodzie GnuPG
 Summary(pt_BR.UTF-8):	libgcrypt é uma biblioteca de criptografia de uso geral baseada no GnuPG
 Name:		libgcrypt
-Version:	1.9.4
+Version:	1.10.1
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
-# Source0-md5:	edc7becfe09c75d8f95ff7623e40c52e
+# Source0-md5:	8fadbe1fddafa341dce5ef3869f70e25
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-libgcrypt_config.patch
-Patch2:		%{name}-poll.patch
 URL:		https://directory.fsf.org/wiki/Libgcrypt
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.14
@@ -28,6 +27,8 @@ BuildRequires:	libgpg-error-devel >= 1.27
 BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	texinfo
 Requires:	libgpg-error >= 1.27
+# getrandom() for getentropy()
+Requires:	uname(release) >= 3.17
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # for some reason known only to rpm there must be "\\|" not "\|" here
@@ -120,7 +121,6 @@ Biblioteka statyczna dietlibc libgcrypt.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 %{__rm} m4/libtool.m4
@@ -142,7 +142,7 @@ Biblioteka statyczna dietlibc libgcrypt.
 %{__make} -C random
 %{__make} -C src \
 	PROGRAMS=
-mv src/.libs/libgcrypt.a diet-libgcrypt.a
+%{__mv} src/.libs/libgcrypt.a diet-libgcrypt.a
 %{__make} clean
 %endif
 
@@ -161,7 +161,7 @@ rm -rf $RPM_BUILD_ROOT
 	m4datadir=%{_aclocaldir}
 
 install -d $RPM_BUILD_ROOT/%{_lib}
-mv -f $RPM_BUILD_ROOT%{_libdir}/libgcrypt.so.* $RPM_BUILD_ROOT/%{_lib}
+%{__mv} $RPM_BUILD_ROOT%{_libdir}/libgcrypt.so.* $RPM_BUILD_ROOT/%{_lib}
 ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libgcrypt.so.*.*.*) \
 	$RPM_BUILD_ROOT%{_libdir}/libgcrypt.so
 
