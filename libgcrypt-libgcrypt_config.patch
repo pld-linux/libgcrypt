@@ -1,6 +1,15 @@
---- libgcrypt-1.2.4/src/libgcrypt-config.in.orig	2007-02-13 11:51:45.000000000 +0100
-+++ libgcrypt-1.2.4/src/libgcrypt-config.in	2007-02-13 11:52:11.000000000 +0100
-@@ -137,11 +137,6 @@
+--- libgcrypt-1.10.1/src/libgcrypt-config.in.orig	2018-10-24 09:45:45.000000000 +0200
++++ libgcrypt-1.10.1/src/libgcrypt-config.in	2023-01-19 11:34:29.348466297 +0100
+@@ -154,7 +154,7 @@
+ 
+     tmp=""
+     for i in $includes $cflags_final; do
+-       if echo "$tmp" | fgrep -v -- "$i" >/dev/null; then
++       if echo "$tmp" | grep -F -v -- "$i" >/dev/null; then
+            tmp="$tmp $i"
+        fi
+     done
+@@ -165,17 +165,12 @@
      libdirs=""
      libs_final="$libs"
  
@@ -12,3 +21,10 @@
      # Set up `libs_final'.
      libs_final="$libs_final $gpg_error_libs"
  
+     tmp=""
+     for i in $libdirs $libs_final; do
+-       if echo "$tmp" | fgrep -v -- "$i" >/dev/null; then
++       if echo "$tmp" | grep -F -v -- "$i" >/dev/null; then
+            tmp="$tmp $i"
+        fi
+     done
