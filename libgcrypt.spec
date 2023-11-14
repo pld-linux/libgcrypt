@@ -2,6 +2,7 @@
 # Conditional build:
 %bcond_with	dietlibc	# static dietlibc library
 %bcond_with	libcap		# Linux capabilities usage
+%bcond_without	static_libs	# static library
 #
 Summary:	Cryptographic library based on the code from GnuPG
 Summary(es.UTF-8):	Libgcrypt es una biblioteca general de desarrole embasada em GnuPG
@@ -147,7 +148,7 @@ Biblioteka statyczna dietlibc libgcrypt.
 %endif
 
 %configure \
-	--enable-static \
+	%{?with_static_libs:--enable-static} \
 	%{?with_libcap:--with-capabilities}
 
 %{__make}
@@ -202,9 +203,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_aclocaldir}/libgcrypt.m4
 %{_infodir}/gcrypt.info*
 
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libgcrypt.a
+%endif
 
 %if %{with dietlibc}
 %files dietlibc
