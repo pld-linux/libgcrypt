@@ -13,7 +13,7 @@ Version:	1.11.0
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	ftp://ftp.gnupg.org/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
+Source0:	https://www.gnupg.org/ftp/gcrypt/libgcrypt/%{name}-%{version}.tar.bz2
 # Source0-md5:	321c4975cfd6a496f0530b65a673f9a4
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-libgcrypt_config.patch
